@@ -1,5 +1,5 @@
 class Cassandra21 < Formula
-  desc "Eventually consistent, distributed key-value store"
+  desc "Distributed key-value store"
   homepage "https://cassandra.apache.org"
   url "https://archive.apache.org/dist/cassandra/2.1.7/apache-cassandra-2.1.7-bin.tar.gz"
   sha256 "add1a34b8e07dacb16df6b8dbe50c66d77cb46b89f66424103e2fd4459b79089"
@@ -84,7 +84,7 @@ class Cassandra21 < Formula
 
     share.install [libexec+"bin/cassandra.in.sh", libexec+"bin/stop-server"]
     inreplace Dir["#{libexec}/bin/cassandra*", "#{libexec}/bin/debug-cql", "#{libexec}/bin/nodetool", "#{libexec}/bin/sstable*"],
-              /`dirname "?\$0"?`\/cassandra.in.sh/,
+              %r{`dirname "?\$0"?`/cassandra.in.sh},
               "#{share}/cassandra.in.sh"
 
     bin.write_exec_script Dir["#{libexec}/bin/*"]
@@ -113,5 +113,9 @@ class Cassandra21 < Formula
       </dict>
     </plist>
     EOS
+  end
+
+  test do
+    system "#{bin}/cassandra", "-v"
   end
 end
