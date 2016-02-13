@@ -1,14 +1,14 @@
 class Node012 < Formula
   desc "JavaScript runtime built on Chrome's V8 engine"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/download/release/v0.12.9/node-v0.12.9.tar.gz"
-  sha256 "35daad301191e5f8dd7e5d2fbb711d081b82d1837d59837b8ee224c256cfe5e4"
+  url "https://nodejs.org/download/release/v0.12.10/node-v0.12.10.tar.gz"
+  sha256 "edbd3710512ec7518a3de4cabf9bfee6d12f278eef2e4b53422c7b063f6b976d"
   head "https://github.com/nodejs/node.git", :branch => "v0.12-staging"
 
   bottle do
-    sha256 "cf95da563043ca5a5522346f2e3ec3b817679382cbf4789bdc1166ec150d19d4" => :el_capitan
-    sha256 "7bd452b27a1e25c0b03b9f94ef97417f55bad98d59ec82e68d1ee614a6479ba2" => :yosemite
-    sha256 "adb3969fbe362e48e218eb15132bab29dd06990341b69ae66171882a52a7b468" => :mavericks
+    sha256 "79d700bd0399bfd1bdc76aaae65de589abd0d57864b87711469fec2c671957fc" => :el_capitan
+    sha256 "4268b19e139c0565c5667221768e74b1b38f43fb16d590c2e646a4baecc4f102" => :yosemite
+    sha256 "8beddf6aaa09cf9f65224ceff58405730cc694e112bcf9b16e025a216019b142" => :mavericks
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -55,10 +55,16 @@ class Node012 < Formula
       ENV.prepend_path "PATH", bin
       # set log level temporarily for npm's `make install`
       ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
+      # unset prefix temporarily for npm's `make install`
+      ENV.delete "NPM_CONFIG_PREFIX"
 
       cd buildpath/"npm_install" do
         system "./configure", "--prefix=#{libexec}/npm"
         system "make", "install"
+        # Remove manpage symlinks from the buildpath, they are breaking bottle
+        # creation. The real manpages are living in libexec/npm/lib/node_modules/npm/man/
+        # https://github.com/Homebrew/homebrew/pull/47081#issuecomment-165280470
+        rm_rf libexec/"npm/share/"
       end
 
       if build.with? "completion"

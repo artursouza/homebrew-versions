@@ -1,13 +1,17 @@
-class Kibana42 < Formula
+class Kibana43 < Formula
   desc "Analytics and search dashboard for Elasticsearch"
   homepage "https://www.elastic.co/products/kibana"
-  url "https://github.com/elastic/kibana.git", :tag => "v4.2.2", :revision => "0a008cd5e312a99eeff403f9585af2d99a18758a"
+  url "https://github.com/elastic/kibana.git",
+      :tag => "v4.3.1",
+      :revision => "d6e412dc2fa54666bf6ceb54a197508a4bc70baf"
+  revision 1
+
   head "https://github.com/elastic/kibana.git"
 
   bottle do
-    sha256 "a12906181ca0ee2f7e5fdf9be264a39fd316c6bf15a5568e3794766b5e1830e2" => :el_capitan
-    sha256 "efc19fef46cfecfb871df41d061b6ce0d7990659f0cd9995cc81da4d326a0734" => :yosemite
-    sha256 "3a3e79a0b5f98f506fa858dd1f71f10731f62175f1a134f65aeb6cd6a413d03e" => :mavericks
+    sha256 "ee6bc72327bb31e78f4c32480d27dc73140bce8a1f3a36c725ffba1710c6a320" => :el_capitan
+    sha256 "c77b20408bda87a9d01da47341433872ee42cbd2953406953874fcee0d9bc90d" => :yosemite
+    sha256 "d9f0cc1bc56f92cc96e245a78e21d942c973878f76f7977db6ef622519e1b767" => :mavericks
   end
 
   conflicts_with "kibana", :because => "Different versions of same formula"
@@ -64,16 +68,16 @@ class Kibana42 < Formula
 
   def post_install
     ln_s etc/"kibana", prefix/"config"
-
-    (var/"lib/kibana/installedPlugins").mkpath
-    ln_s var/"lib/kibana/installedPlugins", prefix/"installedPlugins"
+    (prefix/"installedPlugins").mkdir
   end
 
   plist_options :manual => "kibana"
 
   def caveats; <<-EOS.undent
-    Plugins: #{var}/kibana/installedPlugins/
     Config: #{etc}/kibana/
+     If you wish to preserve your plugins upon upgrade, make a copy of
+     #{prefix}/installedPlugins before upgrading, and copy it into the
+     new keg location after upgrading.
     EOS
   end
 

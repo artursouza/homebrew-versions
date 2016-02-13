@@ -22,57 +22,58 @@ class Llvm37 < Formula
   homepage "http://llvm.org/"
 
   stable do
-    url "http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz"
-    sha256 "ab45895f9dcdad1e140a3a79fd709f64b05ad7364e308c0e582c5b02e9cc3153"
+    url "http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz"
+    sha256 "be7794ed0cec42d6c682ca8e3517535b54555a3defabec83554dbc74db545ad5"
 
     resource "clang" do
-      url "http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz"
-      sha256 "4ed740c5a91df1c90a4118c5154851d6a475f39a91346bdf268c1c29c13aa1cc"
+      url "http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz"
+      sha256 "56e2164c7c2a1772d5ed2a3e57485ff73ff06c97dff12edbeea1acc4412b0674"
     end
 
     resource "clang-tools-extra" do
-      url "http://llvm.org/releases/3.7.0/clang-tools-extra-3.7.0.src.tar.xz"
-      sha256 "8ae8a0a3a96b7a700412d67df0af172cb2fc1326beec575fcc0f71d2e72709cd"
+      url "http://llvm.org/releases/3.7.1/clang-tools-extra-3.7.1.src.tar.xz"
+      sha256 "4a91edaccad1ce984c7c49a4a87db186b7f7b21267b2b03bcf4bd7820715bc6b"
     end
 
     resource "compiler-rt" do
-      url "http://llvm.org/releases/3.7.0/compiler-rt-3.7.0.src.tar.xz"
-      sha256 "227fa998520bc94974a428dc8e7654d9bdf277e5bc70d4064ebc05691bd62b0b"
+      url "http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz"
+      sha256 "9d4769e4a927d3824bcb7a9c82b01e307c68588e6de4e7f04ab82d82c5af8181"
     end
 
     resource "polly" do
-      url "http://llvm.org/releases/3.7.0/polly-3.7.0.src.tar.xz"
-      sha256 "3e5f3f4dc141c7d25b36b910d48c7da74ecc92f10cea5b568c909623d6067edf"
+      url "http://llvm.org/releases/3.7.1/polly-3.7.1.src.tar.xz"
+      sha256 "ce9273ad315e1904fd35dc64ac4375fd592f3c296252ab1d163b9ff593ec3542"
     end
 
     resource "lld" do
-      url "http://llvm.org/releases/3.7.0/lld-3.7.0.src.tar.xz"
-      sha256 "ddb658b789c501efbe4f54ff8ced2c07cd9ff686c92445d8a1ab2cd5dbd837ed"
+      url "http://llvm.org/releases/3.7.1/lld-3.7.1.src.tar.xz"
+      sha256 "a929cb44b45e3181a0ad02d8c9df1d3fc71e001139455c6805f3abf2835ef3ac"
     end
 
     resource "lldb" do
-      url "http://llvm.org/releases/3.7.0/lldb-3.7.0.src.tar.xz"
-      sha256 "f4d7505bc111044eaa4033af012221e492938405b62522b8e3e354c20c4b71e9"
+      url "http://llvm.org/releases/3.7.1/lldb-3.7.1.src.tar.xz"
+      sha256 "9a0bc315ef55f44c98cdf92d064df0847f453ed156dd0ef6a87e04f5fd6a0e01"
     end
 
     resource "libcxx" do
-      url "http://llvm.org/releases/3.7.0/libcxx-3.7.0.src.tar.xz"
-      sha256 "c18f3c8333cd7e678c1424a57fe5e25efe740ca7caf62ac67152b4723f3ad08e"
+      url "http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz"
+      sha256 "357fbd4288ce99733ba06ae2bec6f503413d258aeebaab8b6a791201e6f7f144"
     end
 
     if MacOS.version <= :snow_leopard
       resource "libcxxabi" do
-        url "http://llvm.org/releases/3.7.0/libcxxabi-3.7.0.src.tar.xz"
-        sha256 "48b074fd334958b2d8bab893c897a0c8258328782cdec2d229c7bce432b49beb"
+        url "http://llvm.org/releases/3.7.1/libcxxabi-3.7.1.src.tar.xz"
+        sha256 "a47faaed90f577da8ca3b5f044be9458d354a53fab03003a44085a912b73ab2a"
       end
     end
   end
-  bottle do
-    sha256 "57cd30cf51df8ebdddf5bb31fad878fa5a48b82a4eca7abc50e5bf16bbe48210" => :el_capitan
-    sha256 "3b2bf975050110e86dfcbeef16457d3ad2718eee2adcbbc3a8651dbf391b8660" => :yosemite
-    sha256 "ee14e0f5206806be5d129175bc12d2c391d5620e41819f6a06d04c7415614394" => :mavericks
-  end
 
+  bottle do
+    revision 1
+    sha256 "060e162e9cbb3c335f31c03ac42c0593f4608d67381bed349b91bef6a2416129" => :el_capitan
+    sha256 "7b694a2c5e948d8872813dcd41ef3fb51b175bb15029be1f8c973f72b53dcff2" => :yosemite
+    sha256 "9277457adaf839b15d8403f428ddf773c3bb57b3c82908b915656f8cdb4f876b" => :mavericks
+  end
 
   head do
     url "http://llvm.org/git/llvm.git", :branch => "release_37"
@@ -123,6 +124,7 @@ class Llvm37 < Formula
   option "without-shared", "Don't build LLVM as a shared library"
   option "without-assertions", "Speeds up LLVM, but provides less debug information"
 
+  depends_on "gnu-sed" => :build
   depends_on "gmp"
   depends_on "libffi" => :recommended
   depends_on :python => :optional
@@ -145,6 +147,8 @@ class Llvm37 < Formula
   fails_with :llvm
 
   def install
+    # One of llvm makefiles relies on gnu sed behavior to generate CMake modules correctly
+    ENV.prepend_path "PATH", "#{Formula["gnu-sed"].opt_libexec}/gnubin"
     # Apple's libstdc++ is too old to build LLVM
     ENV.libcxx if ENV.compiler == :clang
 
@@ -170,11 +174,11 @@ class Llvm37 < Formula
 
     install_prefix = lib/"llvm-#{ver}"
 
-    args = [
-      "--prefix=#{install_prefix}",
-      "--enable-optimized",
-      "--disable-bindings",
-      "--with-gmp=#{Formula["gmp"].opt_prefix}",
+    args = %W[
+      --prefix=#{install_prefix}
+      --enable-optimized
+      --disable-bindings
+      --with-gmp=#{Formula["gmp"].opt_prefix}
     ]
 
     if build.with? "all-targets"
@@ -269,6 +273,9 @@ class Llvm37 < Formula
   end
 
   test do
+    # test for sed errors since some llvm makefiles assume that sed
+    # understands '\n' which is true for gnu sed and not for bsd sed.
+    assert_no_match /PATH\)n/, (lib/"llvm-3.7/share/llvm/cmake/LLVMConfig.cmake").read
     system "#{bin}/llvm-config-#{ver}", "--version"
   end
 end

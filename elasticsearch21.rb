@@ -1,8 +1,8 @@
-class Elasticsearch20 < Formula
+class Elasticsearch21 < Formula
   desc "Distributed search & analytics engine"
   homepage "https://www.elastic.co/products/elasticsearch"
-  url "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.0.2/elasticsearch-2.0.2.tar.gz"
-  sha256 "74113dffb178d0496af47072cb5c757d597cb0f8549230b9bdb07804d5a1fa3f"
+  url "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.1.2/elasticsearch-2.1.2.tar.gz"
+  sha256 "069cf3ab88a36d01f86e54b46169891b0adef6eda126ea35e540249d904022e1"
 
   conflicts_with "elasticsearch", :because => "Different versions of same formula"
 
@@ -46,7 +46,7 @@ class Elasticsearch20 < Formula
 
     # Move config files into etc
     (etc/"elasticsearch").install Dir[libexec/"config/*"]
-    (etc/"elasticsearch/scripts").mkdir unless File.exists?(etc/"elasticsearch/scripts")
+    (etc/"elasticsearch/scripts").mkdir unless File.exist?(etc/"elasticsearch/scripts")
     (libexec/"config").rmtree
 
     bin.write_exec_script Dir[libexec/"bin/*"]

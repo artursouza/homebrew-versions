@@ -1,14 +1,14 @@
 class Node4Lts < Formula
   desc "JavaScript runtime built on Chrome's V8 engine"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v4.2.4/node-v4.2.4.tar.gz"
-  sha256 "4ee244ffede7328d9fa24c3024787e71225b7abaac49fe2b30e68b27460c10ec"
+  url "https://nodejs.org/dist/v4.3.0/node-v4.3.0.tar.gz"
+  sha256 "18504ac6d903cd061f60a29dafcda416a078112f3404d23a7901c41a8e9706b9"
   head "https://github.com/nodejs/node.git", :branch => "v4.x-staging"
 
   bottle do
-    sha256 "17ea5cc3ff20a10086893486f32a820f10fa0781c995c58946e4e10c6b7bad94" => :el_capitan
-    sha256 "dcbf5249c1abe94c02a7954ee5ea08b60a32da9586b48dadeb980039ff7d7272" => :yosemite
-    sha256 "cf94f95094979ead156438281a9e25add99b97bb9028df43eaed2afd389d0e76" => :mavericks
+    sha256 "9392f70907d5e9906e2f63ac1855c50dd163c96aadca48bfefae45965aa333f7" => :el_capitan
+    sha256 "511b7e857a15421200fa0ac0da370fd1db947f0ac2e481c48512debb0125e2be" => :yosemite
+    sha256 "2e32b52424091c00d59c19460311a93b98d3f72a156a562f3477377ccfd37201" => :mavericks
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -60,6 +60,8 @@ class Node4Lts < Formula
       ENV.prepend_path "PATH", bin
       # set log level temporarily for npm's `make install`
       ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
+      # unset prefix temporarily for npm's `make install`
+      ENV.delete "NPM_CONFIG_PREFIX"
 
       cd buildpath/"npm_install" do
         system "./configure", "--prefix=#{libexec}/npm"

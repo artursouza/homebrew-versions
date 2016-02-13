@@ -2,14 +2,14 @@
 class Node010 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v0.10.41/node-v0.10.41.tar.gz"
-  sha256 "79f694e2a5c42543b75d0c69f6860499d7593136d0f6b59e7163b9e66fb2c995"
+  url "https://nodejs.org/dist/v0.10.42/node-v0.10.42.tar.gz"
+  sha256 "ebc1d53698f80c5a7b0b948e1108d7858f93d2d9ebf4541c12688d85704de105"
   head "https://github.com/nodejs/node.git", :branch => "v0.10-staging"
 
   bottle do
-    sha256 "3b809332664b36e68e4080c0565ff8840ff7b4201133ebff6edca851a9b8953e" => :el_capitan
-    sha256 "20a72b8fd7efb91914746ffba064fbf3d2e3f69cb095d02ef7b77b7b05bf9138" => :yosemite
-    sha256 "567366769ce4b435d1edcdd06de06c64ed9a8c8fb8c78df9f696190cd113e4b3" => :mavericks
+    sha256 "67a181f3fc75f7e4d2513b63dca6025bdb3f3ff578d671552fba6eebdcb04486" => :el_capitan
+    sha256 "8b3611bf3dedfff63ed3d07d35739c1a8579e46cbfe9dc1dd26b25b9bbcf88e4" => :yosemite
+    sha256 "bf81843537f8a78c2525e0309a098077396ff5ae558ff1d28201560795d307f2" => :mavericks
   end
 
   deprecated_option "enable-debug" => "with-debug"
@@ -58,9 +58,16 @@ class Node010 < Formula
       # set log level temporarily for npm's `make install`
       ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
 
+      # unset prefix temporarily for npm's `make install`
+      ENV.delete "NPM_CONFIG_PREFIX"
+
       cd buildpath/"npm_install" do
         system "./configure", "--prefix=#{libexec}/npm"
         system "make", "install"
+        # Remove manpage symlinks from the buildpath, they are breaking bottle
+        # creation. The real manpages are living in libexec/npm/lib/node_modules/npm/man/
+        # https://github.com/Homebrew/homebrew/pull/47081#issuecomment-165280470
+        rm_rf libexec/"npm/share/"
       end
 
       if build.with? "completion"

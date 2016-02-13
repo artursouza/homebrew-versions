@@ -1,14 +1,14 @@
 class Gnupg21 < Formula
   desc "GNU Privacy Guard: a free PGP replacement"
   homepage "https://www.gnupg.org/"
-  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.1.10.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-2.1.10.tar.bz2"
-  sha256 "93bd58d81771a4fa488566e5d2e13b1fd7afc86789401eb41731882abfd26cf9"
+  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.1.11.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-2.1.11.tar.bz2"
+  sha256 "b7b0fb2c8c5d47d7ec916d4a1097c0ddcb94a12bb1c0ac424ad86b1ee316b61a"
 
   bottle do
-    sha256 "33867078e4d9afc6810eb0da76ee8d0b282cef574ab3875a94af3e14a6244e5d" => :el_capitan
-    sha256 "ff31986a9467486d354984c1dbc07367e3e1a111bf12f7a0407c1c85ee58fbfa" => :yosemite
-    sha256 "e79863919743e8de9b9f31798e00fc4f6f54dd2ee713d9b17634c1da523847ed" => :mavericks
+    sha256 "725cb9cebd07ca0ab9ea56a5742c765b77f0eed17f7c4428b575c40eea35ac8b" => :el_capitan
+    sha256 "a699c10bc5324df5b88cd1612b7aa9c4b841986d7438eed542a4b59816cf41e2" => :yosemite
+    sha256 "8c43114c858a4975c0fd1b3b52703e2be6b4ac2d8a40fb89dd9366db425b39a0" => :mavericks
   end
 
   head do
@@ -25,16 +25,16 @@ class Gnupg21 < Formula
   depends_on "sqlite" => :build if MacOS.version == :mavericks
   depends_on "npth"
   depends_on "gnutls"
-  depends_on "homebrew/fuse/encfs" => :optional
   depends_on "libgpg-error"
   depends_on "libgcrypt"
   depends_on "libksba"
   depends_on "libassuan"
   depends_on "pinentry"
-  depends_on "libusb-compat" => :recommended
-  depends_on "readline" => :optional
   depends_on "gettext"
   depends_on "adns"
+  depends_on "libusb-compat" => :recommended
+  depends_on "readline" => :optional
+  depends_on "homebrew/fuse/encfs" => :optional
 
   conflicts_with "gnupg2",
         :because => "GPG2.1.x is incompatible with the 2.0.x branch."
